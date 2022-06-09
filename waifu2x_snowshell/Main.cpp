@@ -33,7 +33,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdL
 	if (!bIsWow64)
 		MessageBox(NULL, L"This program only works on 64bit system", L"Error", MB_OK | MB_ICONERROR);
 
-	hWnd = CreateWindow(lpszClass, L"waifu2x - Snowshell v2.3", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_BORDER, CW_USEDEFAULT, CW_USEDEFAULT, 530, 370, NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindow(lpszClass, L"waifu2x - Snowshell v2.3", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_BORDER, CW_USEDEFAULT, CW_USEDEFAULT, 600, 370, NULL, NULL, hInstance, NULL);
 
 	ShowWindow(hWnd, nCmdShow);
 
@@ -99,7 +99,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		else
 			hBGBitmap = LoadBitmap(g_hInst, MAKEINTRESOURCE(IDB_BITMAP1));
 
-		hCombo = CreateWindowW(L"combobox", NULL, WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST, 440, 283, 67, 0, hWnd, (HMENU)ID_EXT_COMBO, g_hInst, NULL);
+		hCombo = CreateWindowW(L"combobox", NULL, WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST, 510, 283, 67, 0, hWnd, (HMENU)ID_EXT_COMBO, g_hInst, NULL);
 		for (i = 0; i < ExtNum; i++) {
 			SendMessage(hCombo, CB_ADDSTRING, 0, (LPARAM)ExtList[i]);
 			if(SnowSetting::getOutputExt()._Equal(ExtList[i]))
@@ -324,13 +324,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		SetTextColor(hMemDC, RGB(0xef, 0xef, 0xef));
 
 		if(SnowSetting::CurrentConverter == &SnowSetting::CONVERTER_CPP)
-			prtTextBorder(hMemDC, 375, 2, L"waifu2x-converter-cpp", 21, RGB(0x21, 0x21, 0x21), 1);
+			prtTextBorder(hMemDC, 445, 2, L"waifu2x-converter-cpp", 21, RGB(0x21, 0x21, 0x21), 1);
 		else if (SnowSetting::CurrentConverter == &SnowSetting::CONVERTER_CAFFE)
-			prtTextBorder(hMemDC, 430, 2, L"waifu2x-caffe", 13, RGB(0x21, 0x21, 0x21), 1);
+			prtTextBorder(hMemDC, 500, 2, L"waifu2x-caffe", 13, RGB(0x21, 0x21, 0x21), 1);
 		else
-			prtTextBorder(hMemDC, 385, 2, L"waifu2x-ncnn-vulkan", 19, RGB(0x21, 0x21, 0x21), 1);
+			prtTextBorder(hMemDC, 455, 2, L"waifu2x-ncnn-vulkan", 19, RGB(0x21, 0x21, 0x21), 1);
 
-		prtTextBorder(hMemDC, 410, 288, L" =▶", 3, RGB(0x21, 0x21, 0x21), 1);
+		prtTextBorder(hMemDC, 480, 288, L" =▶", 3, RGB(0x21, 0x21, 0x21), 1);
 
 		BitBlt(hdc, 0, 0, rt.right, rt.bottom, hMemDC, 0, 0, SRCCOPY);
 

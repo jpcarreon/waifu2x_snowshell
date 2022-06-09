@@ -25,7 +25,7 @@ SnowSetting::SnowSetting()
 	CurrPath = path;
 	CurrPath = CurrPath.substr(0, CurrPath.find_last_of(L'\\'));
 	OutputDirName = L"output";
-	INIPath = CurrPath + L"\\config.ini";
+	INIPath = CurrPath + L"\\presets\\config.ini";
 	LangPath = CurrPath + L"\\Lang";
 	CONVERTER_CPP = Converter_Cpp(CurrPath + L"\\waifu2x-converter\\waifu2x-converter-cpp.exe");
 	CONVERTER_CAFFE = Converter_Caffe(CurrPath + L"\\waifu2x-caffe\\waifu2x-caffe-cui.exe");
