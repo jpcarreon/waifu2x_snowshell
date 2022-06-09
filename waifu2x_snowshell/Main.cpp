@@ -282,6 +282,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 			SnowSetting::getTexts(&UITitleText, &UIText);
 			InvalidateRect(hWnd, NULL, TRUE);
 			return TRUE;
+		case ID_MENU_PRESET_ONE:
+		case ID_MENU_PRESET_TWO:
+		case ID_MENU_PRESET_THREE:
+			SnowSetting::saveSetting();
+			SnowSetting::checkPreset(hMenu, LOWORD(wParam) - ID_MENU_PRESET_ONE);
+			SetMenu(hWnd, NULL);
+			DestroyMenu(hMenu);
+			hMenu = LoadMenu(g_hInst, MAKEINTRESOURCE(IDR_MENU1));
+			SnowSetting::loadMenuString(hMenu);
+			SetMenu(hWnd, hMenu);
+			SnowSetting::checkMenuAll(hMenu);
+			SnowSetting::getTexts(&UITitleText, &UIText);
+			InvalidateRect(hWnd, NULL, TRUE);
+			return TRUE;
 		case ID_EXT_COMBO:
 			switch (HIWORD(wParam)) {
 			case CBN_SELCHANGE:

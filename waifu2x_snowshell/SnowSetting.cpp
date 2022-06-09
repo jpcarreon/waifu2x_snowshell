@@ -25,7 +25,7 @@ SnowSetting::SnowSetting()
 	CurrPath = path;
 	CurrPath = CurrPath.substr(0, CurrPath.find_last_of(L'\\'));
 	OutputDirName = L"output";
-	INIPath = CurrPath + L"\\presets\\config.ini";
+	INIPath = CurrPath + L"\\presets\\preset0.ini";
 	LangPath = CurrPath + L"\\Lang";
 	CONVERTER_CPP = Converter_Cpp(CurrPath + L"\\waifu2x-converter\\waifu2x-converter-cpp.exe");
 	CONVERTER_CAFFE = Converter_Caffe(CurrPath + L"\\waifu2x-caffe\\waifu2x-caffe-cui.exe");
@@ -57,6 +57,7 @@ SnowSetting *SnowSetting::Init()
 	if (Singletone == nullptr) {
 		Singletone = new SnowSetting();
 		loadSetting();
+		setPreset(0);
 	}
 	return Singletone;
 }
@@ -530,7 +531,7 @@ bool SnowSetting::loadSetting()
 		if (langsel == -1)
 			langsel = 1;
 	}
-	setLang(langsel);
+	setLang(langsel);	
 
 	Key = L"Debug";
 	setDebug(GetPrivateProfileInt(Section.c_str(), Key.c_str(), 0, INIPath.c_str()));
@@ -769,6 +770,14 @@ int SnowSetting::getLang()
 	return Singletone->Lang;
 }
 
+int SnowSetting::getPreset()
+{
+	if (Singletone == nullptr)
+		Init();
+
+	return Singletone->Preset;
+}
+
 BOOL SnowSetting::getDebug()
 {
 	if (Singletone == nullptr)
@@ -871,6 +880,16 @@ void SnowSetting::setLang(int Lang)
 	loadLocale();
 }
 
+void SnowSetting::setPreset(int Num) 
+{
+	if (Singletone == nullptr)
+		Init();
+
+	Singletone->Preset = Num;
+	Singletone->INIPath = Singletone->CurrPath + L"\\presets\\preset" + std::to_wstring(Num) + L".ini";
+	loadSetting();
+}
+
 void SnowSetting::setDebug(BOOL Debug)
 {
 	if (Singletone == nullptr)
@@ -940,6 +959,7 @@ void SnowSetting::checkMenuAll(HMENU hMenu)
 	checkExport(hMenu);
 	checkConfirm(hMenu);
 	checkLang(hMenu);
+	checkPreset(hMenu);
 	checkDebug(hMenu);
 	checkConverterNum(hMenu);
 }
@@ -1048,6 +1068,18 @@ void SnowSetting::checkLang(HMENU hMenu, int sel)
 	for (int i = 0; i < LangNum; i++)
 		CheckMenuItem(hSubMenu, i, MF_BYPOSITION | MF_UNCHECKED);
 	CheckMenuItem(hSubMenu, getLang(), MF_BYPOSITION | MF_CHECKED);
+}
+
+void SnowSetting::checkPreset(HMENU hMenu, int sel)
+{
+	HMENU hSubMenu = GetSubMenu(hMenu, MENU_PRESET);
+
+	if (sel != -1)
+		setPreset(sel);
+
+	for (int i = 0; i <= PRESET_MAX; i++)
+		CheckMenuItem(hSubMenu, i, MF_BYPOSITION | MF_UNCHECKED);
+	CheckMenuItem(hSubMenu, getPreset(), MF_BYPOSITION | MF_CHECKED);
 }
 
 void SnowSetting::checkDebug(HMENU hMenu, int sel)

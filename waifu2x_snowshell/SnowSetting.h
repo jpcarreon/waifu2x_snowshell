@@ -73,6 +73,12 @@ using namespace std;
 
 #define CONVERTER_NUM_MAX 2
 
+#define MENU_PRESET 9
+#define PRESET_ONE 0
+#define PRESET_TWO 1
+#define PRESET_THREE 2
+
+#define PRESET_MAX 2
 
 #undef MAX_PATH
 #define MAX_PATH SHRT_MAX
@@ -96,6 +102,7 @@ private:
 	int Export;
 	int Confirm;
 	int Lang;
+	int Preset;
 	int Debug;
 	int ConverterNum;
 	std::wstring ScaleRatio;
@@ -133,6 +140,7 @@ public:
 	static BOOL getDebug();
 	static int getConverterNum();
 	static int getLang();
+	static int getPreset();
 	static std::wstring getLangName();
 	static std::wstring getScaleRatio();
 	static std::wstring getOutputExt();
@@ -144,6 +152,7 @@ public:
 	static void setExport(int Export);
 	static void setConfirm(BOOL Confirm);
 	static void setLang(int Lang);
+	static void setPreset(int Num);
 	static void setDebug(BOOL Debug);
 	static void setConverterNum(int ConverterNum);
 	static void setScaleRatio(std::wstring scaleRatio);
@@ -157,6 +166,7 @@ public:
 	static void checkExport(HMENU hMenu, int sel = -1);
 	static void checkConfirm(HMENU hMenu, int sel = -1);
 	static void checkLang(HMENU hMenu, int sel = -1);
+	static void checkPreset(HMENU hMenu, int sel = -1);
 	static void checkDebug(HMENU hMenu, int sel = -1);
 	static void checkConverterNum(HMENU hMenu, int sel = -1);
 
